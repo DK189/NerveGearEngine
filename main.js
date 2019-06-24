@@ -1,5 +1,5 @@
-(function () {
+(function (w) {
     "use strict";
-    console.log("NerveGearSoft", NerveGearSoft);
-    w.e = new NerveGearEngine(document.querySelector("nerve-gear"));
-})(w);
+    console.log("NerveGearSoft", NerveGearEngine);
+    console.log(w.e = new NerveGearEngine(document.querySelector("nerve-gear")));
+})(window);
