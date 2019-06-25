@@ -33,14 +33,26 @@ NerveGearEngine = (function (w) {
         this._el.style.background = "#000";
 
         (async function runner (self) {
-            var devs = await navigator.mediaDevices.enumerateDevices();
-            var cams = devs.filter(function (dev) {return dev.kind == "videoinput";})
-            alert(JSON.stringify(cams));
-            var stream = await navigator.mediaDevices.getUserMedia({
+            var requestUserMediaConstraints = {
                 video: {
 
                 }
-            });
+            };
+
+            var devs = await navigator.mediaDevices.enumerateDevices();
+            var cams = devs.filter(function (dev) {return dev.kind == "videoinput";})
+            alert(JSON.stringify(cams));
+            var backCams = cams.filter(function (cam) {return cam.label.indexOf("back") > -1});
+            if (backCams.length > 0) {
+                requestUserMediaConstraints.deviceId = {
+                    exact: backCams[0].deviceId
+                }
+            } else if (cams.length > 0) {
+                requestUserMediaConstraints.deviceId = {
+                    exact: cams[0].deviceId
+                }
+            }
+            var stream = await navigator.mediaDevices.getUserMedia(requestUserMediaConstraints);
             self._stream = stream;
             self._vid = document.createElement("video");
             self._can = document.createElement("canvas");
