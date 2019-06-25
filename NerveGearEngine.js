@@ -30,30 +30,47 @@ NerveGearEngine = (function (w) {
         }
 
         this._el = element;
+        this._el.style.background = "#000";
 
         (async function runner (self) {
             var stream = await navigator.mediaDevices.getUserMedia({video: true, audio: false});
-            console.log(stream);
             self._stream = stream;
             self._vid = document.createElement("video");
             self._can = document.createElement("canvas");
             self._vie = document.createElement("video");
 
-            self._2d = self._can.getContext("2d");
+            self._vid.style.display = "block";
+            self._vid.style.width = "100%";
+            self._vid.style.height = "100%";
 
-            loopGameFrame(function () {
-                self._2d.drawImage(self._vid, 0, 0, 100, 100);
-                return true;
-            });
+            self._can.style.display = "block";
+            self._can.style.width = "100%";
+            self._can.style.height = "100%";
 
-            self._vid.srcObject = self._stream;
-            self._vie.srcObject = self._can.captureStream();
             self._vie.style.display = "block";
             self._vie.style.width = "100%";
             self._vie.style.height = "100%";
 
-            self._el.append(self._vid);
-            self._el.append(self._can);
+
+            self._2d = self._can.getContext("2d");
+
+            loopGameFrame(function () {
+                self._can.width = self._vid.videoWidth;
+                self._can.height = self._vid.videoHeight;
+
+                self._2d.beginPath();
+                self._2d.drawImage(self._vid, 0, 0, self._vid.videoWidth, self._vid.videoHeight);
+                self._2d.closePath();
+                return true;
+            });
+
+            self._vid.autoplay = true;
+            self._vie.autoplay = true;
+            self._vid.srcObject = self._stream;
+            self._vie.srcObject = self._can.captureStream();
+
+            // self._el.append(self._vid);
+            // self._el.append(self._can);
             self._el.append(self._vie);
         })(this);
     };
