@@ -46,6 +46,7 @@ NerveGearEngine = (function (w) {
                     exact: backCams[0].deviceId
                 }
                 alert(1);
+                alert(JSON.stringify(backCams));
             } else if (cams.length > 0) {
                 requestUserMediaConstraints.deviceId = {
                     exact: cams[0].deviceId
