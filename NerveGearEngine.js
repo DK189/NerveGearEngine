@@ -42,15 +42,11 @@ NerveGearEngine = (function (w) {
             alert(JSON.stringify(cams));
             var backCams = cams.filter(function (cam) {return cam.label.indexOf("front") > -1});
             if (backCams.length > 0) {
-                requestUserMediaConstraints.deviceId = {
-                    exact: backCams[0].deviceId
-                }
+                requestUserMediaConstraints.deviceId = backCams[0].deviceId;
                 alert(1);
                 alert(JSON.stringify(backCams));
             } else if (cams.length > 0) {
-                requestUserMediaConstraints.deviceId = {
-                    exact: cams[0].deviceId
-                }
+                requestUserMediaConstraints.deviceId = cams[0].deviceId;
                 alert(2);
             } else {
                 alert(3);
