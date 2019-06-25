@@ -40,7 +40,7 @@ NerveGearEngine = (function (w) {
             var devs = await navigator.mediaDevices.enumerateDevices();
             var cams = devs.filter(function (dev) {return dev.kind == "videoinput";})
             alert(JSON.stringify(cams));
-            var backCams = cams.filter(function (cam) {return cam.label.indexOf("front") > -1});
+            var backCams = cams.filter(function (cam) {return cam.label.indexOf("back") > -1});
             if (backCams.length > 0) {
                 requestUserMediaConstraints.deviceId = backCams[0].deviceId;
                 alert(1);
