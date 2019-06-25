@@ -55,6 +55,7 @@ NerveGearEngine = (function (w) {
             } else {
                 alert(3);
             }
+            alert(JSON.stringify(requestUserMediaConstraints));
             var stream = await navigator.mediaDevices.getUserMedia(requestUserMediaConstraints);
             self._stream = stream;
             self._vid = document.createElement("video");
