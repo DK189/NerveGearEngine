@@ -33,7 +33,14 @@ NerveGearEngine = (function (w) {
         this._el.style.background = "#000";
 
         (async function runner (self) {
-            var stream = await navigator.mediaDevices.getUserMedia({video: true, audio: false});
+            var devs = await navigator.mediaDevices.enumerateDevices();
+            var cams = devs.filter(function (dev) {return dev.kind == "videoinput";})
+            alert(JSON.stringify(cams));
+            var stream = await navigator.mediaDevices.getUserMedia({
+                video: {
+
+                }
+            });
             self._stream = stream;
             self._vid = document.createElement("video");
             self._can = document.createElement("canvas");
