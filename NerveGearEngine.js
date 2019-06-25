@@ -34,9 +34,7 @@ NerveGearEngine = (function (w) {
 
         (async function runner (self) {
             var requestUserMediaConstraints = {
-                video: {
-
-                }
+                video: true
             };
 
             var devs = await navigator.mediaDevices.enumerateDevices();
@@ -47,10 +45,14 @@ NerveGearEngine = (function (w) {
                 requestUserMediaConstraints.deviceId = {
                     exact: backCams[0].deviceId
                 }
+                alert(1);
             } else if (cams.length > 0) {
                 requestUserMediaConstraints.deviceId = {
                     exact: cams[0].deviceId
                 }
+                alert(2);
+            } else {
+                alert(3);
             }
             var stream = await navigator.mediaDevices.getUserMedia(requestUserMediaConstraints);
             self._stream = stream;
