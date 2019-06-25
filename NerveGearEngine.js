@@ -34,7 +34,9 @@ NerveGearEngine = (function (w) {
 
         (async function runner (self) {
             var requestUserMediaConstraints = {
-                video: true
+                video: {
+
+                }
             };
 
             var devs = await navigator.mediaDevices.enumerateDevices();
@@ -42,11 +44,15 @@ NerveGearEngine = (function (w) {
             alert(JSON.stringify(cams));
             var backCams = cams.filter(function (cam) {return cam.label.indexOf("back") > -1});
             if (backCams.length > 0) {
-                requestUserMediaConstraints.deviceId = backCams[0].deviceId;
+                requestUserMediaConstraints.video.deviceId = {
+                    exact: backCams[0].deviceId
+                }
                 alert(1);
                 alert(JSON.stringify(backCams));
             } else if (cams.length > 0) {
-                requestUserMediaConstraints.deviceId = cams[0].deviceId;
+                requestUserMediaConstraints.video.deviceId = {
+                    exact: cams[0].deviceId
+                }
                 alert(2);
             } else {
                 alert(3);
