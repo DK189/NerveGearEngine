@@ -1,10 +1,10 @@
-NerveGearEngine = (function (w) {
+NerveGearEngine = (function(w) {
     "use strict";
 
-    function loopGameFrame (func) {
+    function loopGameFrame(func) {
         var request = window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame;;
         if (!!request) {
-            var wrapper = function () {
+            var wrapper = function() {
                 if (func() === false) {
                     return;
                 }
@@ -13,15 +13,15 @@ NerveGearEngine = (function (w) {
             wrapper();
         } else {
             var intervalId = false;
-            intervalId = setInterval(function () {
+            intervalId = setInterval(function() {
                 if (func() === false) {
                     clearInterval(intervalId);
                 }
-            }, 1000/60);
+            }, 1000 / 60);
         }
     }
 
-    var NerveGearEngine = function (element) {
+    var NerveGearEngine = function(element) {
         if (!(this instanceof NerveGearEngine)) {
             throw new Error("Please use the 'new' operator!");
         }
@@ -32,31 +32,38 @@ NerveGearEngine = (function (w) {
         this._el = element;
         this._el.style.background = "#000";
 
-        (async function runner (self) {
+        (async function runner(self) {
             var requestUserMediaConstraints = {
+                audio: true,
                 video: {
-
+                    facingMode: {
+                        exact: "environment"
+                    }
                 }
             };
 
-            var devs = await navigator.mediaDevices.enumerateDevices();
-            var cams = devs.filter(function (dev) {return dev.kind == "videoinput";})
-            alert(JSON.stringify(cams));
-            var backCams = cams.filter(function (cam) {return cam.label.indexOf("back") > -1});
-            if (backCams.length > 0) {
-                requestUserMediaConstraints.video.deviceId = {
-                    exact: backCams[0].deviceId
-                }
-                alert(1);
-                alert(JSON.stringify(backCams));
-            } else if (cams.length > 0) {
-                requestUserMediaConstraints.video.deviceId = {
-                    exact: cams[0].deviceId
-                }
-                alert(2);
-            } else {
-                alert(3);
-            }
+            // var devs = await navigator.mediaDevices.enumerateDevices();
+            // var cams = devs.filter(function(dev) {
+            //     return dev.kind == "videoinput";
+            // })
+            // alert(JSON.stringify(cams));
+            // var backCams = cams.filter(function(cam) {
+            //     return cam.label.indexOf("back") > -1
+            // });
+            // if (backCams.length > 0) {
+            //     requestUserMediaConstraints.video.deviceId = {
+            //         exact: backCams[0].deviceId
+            //     }
+            //     alert(1);
+            //     alert(JSON.stringify(backCams));
+            // } else if (cams.length > 0) {
+            //     requestUserMediaConstraints.video.deviceId = {
+            //         exact: cams[0].deviceId
+            //     }
+            //     alert(2);
+            // } else {
+            //     alert(3);
+            // }
             alert(JSON.stringify(requestUserMediaConstraints));
             var stream = await navigator.mediaDevices.getUserMedia(requestUserMediaConstraints);
             self._stream = stream;
@@ -79,7 +86,7 @@ NerveGearEngine = (function (w) {
 
             self._2d = self._can.getContext("2d");
 
-            loopGameFrame(function () {
+            loopGameFrame(function() {
                 self._can.width = self._vid.videoWidth;
                 self._can.height = self._vid.videoHeight;
 
