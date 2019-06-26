@@ -34,11 +34,9 @@ NerveGearEngine = (function(w) {
 
         (async function runner(self) {
             var requestUserMediaConstraints = {
-                audio: true,
+                audio: false,
                 video: {
-                    facingMode: {
-                        exact: "environment"
-                    }
+                    facingMode: "environment"
                 }
             };
 
