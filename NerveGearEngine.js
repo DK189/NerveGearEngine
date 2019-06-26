@@ -98,6 +98,9 @@ NerveGearEngine = (function(w) {
 
             self._vid.autoplay = true;
             self._vie.autoplay = true;
+
+            self._vid.mute = true;
+
             self._vid.srcObject = self._stream;
             self._vie.srcObject = self._can.captureStream();
 
