@@ -111,9 +111,9 @@ NerveGearEngine = (function(w) {
 
             gyroscope.addEventListener('reading', e => {
                 console.log(e);
-                self._gyro.X = gyroscope.x.toFixed(2);
-                self._gyro.Y = gyroscope.y.toFixed(2);
-                self._gyro.Z = gyroscope.z.toFixed(2);
+                self._gyro.X = gyroscope.x.toFixed(1);
+                self._gyro.Y = gyroscope.y.toFixed(1);
+                self._gyro.Z = gyroscope.z.toFixed(1);
             });
             gyroscope.start();
 
