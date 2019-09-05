@@ -40,29 +40,6 @@ NerveGearEngine = (function (w) {
                 }
             };
 
-            // var devs = await navigator.mediaDevices.enumerateDevices();
-            // var cams = devs.filter(function(dev) {
-            //     return dev.kind == "videoinput";
-            // })
-            // alert(JSON.stringify(cams));
-            // var backCams = cams.filter(function(cam) {
-            //     return cam.label.indexOf("back") > -1
-            // });
-            // if (backCams.length > 0) {
-            //     requestUserMediaConstraints.video.deviceId = {
-            //         exact: backCams[0].deviceId
-            //     }
-            //     alert(1);
-            //     alert(JSON.stringify(backCams));
-            // } else if (cams.length > 0) {
-            //     requestUserMediaConstraints.video.deviceId = {
-            //         exact: cams[0].deviceId
-            //     }
-            //     alert(2);
-            // } else {
-            //     alert(3);
-            // }
-            // alert(JSON.stringify(requestUserMediaConstraints));
             var stream = await navigator.mediaDevices.getUserMedia(requestUserMediaConstraints);
             self._stream = stream;
             self._vid = document.createElement("video");
@@ -143,6 +120,10 @@ NerveGearEngine = (function (w) {
                 ctx.clearRect(0,0,canvas.with, canvas.height);
 
                 return true;
+            });
+
+            self._el.addEventListener("click", function (e) {
+                self._el.requestFullscreen();
             });
         })(this);
     };
