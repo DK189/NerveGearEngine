@@ -1,10 +1,10 @@
-NerveGearEngine = (function(w) {
+NerveGearEngine = (function (w) {
     "use strict";
 
     function loopGameFrame(func) {
         var request = window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame;;
         if (!!request) {
-            var wrapper = function() {
+            var wrapper = function () {
                 if (func() === false) {
                     return;
                 }
@@ -13,7 +13,7 @@ NerveGearEngine = (function(w) {
             wrapper();
         } else {
             var intervalId = false;
-            intervalId = setInterval(function() {
+            intervalId = setInterval(function () {
                 if (func() === false) {
                     clearInterval(intervalId);
                 }
@@ -21,7 +21,7 @@ NerveGearEngine = (function(w) {
         }
     }
 
-    var NerveGearEngine = function(element) {
+    var NerveGearEngine = function (element) {
         if (!(this instanceof NerveGearEngine)) {
             throw new Error("Please use the 'new' operator!");
         }
@@ -98,13 +98,13 @@ NerveGearEngine = (function(w) {
 
             self._GeoLocation = {};
 
-            self._geolocation_watchID = navigator.geolocation.watchPosition(function(position) {
+            self._geolocation_watchID = navigator.geolocation.watchPosition(function (position) {
                 console.log(self._GeoLocation = position.coords);
             }, console.error, {
                 enableHighAccuracy: true,
             });
 
-            self._gyro = {X:0,Y:0,Z:0};
+            self._gyro = { X: 0, Y: 0, Z: 0 };
             var gyroscope = self._gyroscope = new Gyroscope({
                 frequency: 60
             });
@@ -117,7 +117,7 @@ NerveGearEngine = (function(w) {
             });
             gyroscope.start();
 
-            loopGameFrame(function() {
+            loopGameFrame(function engineLoop() {
                 var ctx = self._2d;
 
                 ctx.canvas.width = self._vid.videoWidth;
@@ -135,7 +135,11 @@ NerveGearEngine = (function(w) {
                 // ctx.strokeText(txt, 10, 10);
                 ctx.closePath();
 
+                if (w.tada && typeof (w.tada) == "function") {
+                    w.tada(self, ctx, self._GeoLocation, self._gyro);
+                }
 
+                ctx.fill();
 
                 return true;
             });
