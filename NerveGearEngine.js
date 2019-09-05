@@ -118,6 +118,7 @@ NerveGearEngine = (function (w) {
             gyroscope.start();
 
             loopGameFrame(function engineLoop() {
+                var canvas = self._can;
                 var ctx = self._2d;
 
                 ctx.canvas.width = self._vid.videoWidth;
@@ -139,7 +140,7 @@ NerveGearEngine = (function (w) {
                     w.tada(self, ctx, self._GeoLocation, self._gyro);
                 }
 
-                ctx.fill();
+                ctx.clearRect(0,0,canvas.with, canvas.height);
 
                 return true;
             });
