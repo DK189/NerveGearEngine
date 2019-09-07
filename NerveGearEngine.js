@@ -76,7 +76,8 @@ NerveGearEngine = (function (w) {
             self._GeoLocation = {};
 
             self._geolocation_watchID = navigator.geolocation.watchPosition(function (position) {
-                console.log(self._GeoLocation = position.coords);
+                // console.log(position);
+                self._GeoLocation = position.coords;
             }, console.error, {
                 enableHighAccuracy: true,
             });
