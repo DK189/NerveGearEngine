@@ -125,8 +125,12 @@ NerveGearEngine = (function (w) {
                 return true;
             });
 
-            self._el.addEventListener("click", function (e) {
-                self._el.requestFullscreen();
+            self._el.addEventListener("dblclick", function (e) {
+                if (!document.fullscreenElement) {
+                    self._el.requestFullscreen();
+                } else {
+                    document.exitFullscreen();
+                }
             });
         })(this);
     };
