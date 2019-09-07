@@ -89,9 +89,9 @@ NerveGearEngine = (function (w) {
 
             gyroscope.addEventListener('reading', e => {
                 // console.log(e);
-                self._gyro.X = gyroscope.x.toFixed(1);
-                self._gyro.Y = gyroscope.y.toFixed(1);
-                self._gyro.Z = gyroscope.z.toFixed(1);
+                self._gyro.X = gyroscope.x;
+                self._gyro.Y = gyroscope.y;
+                self._gyro.Z = gyroscope.z;
             });
             gyroscope.start();
 
@@ -104,7 +104,9 @@ NerveGearEngine = (function (w) {
 
                 var txt1 = "", txt2 = "";
                 txt1 += "GeoLocation: lat=" + self._GeoLocation.latitude + ", long=" + self._GeoLocation.longitude + ", alt=" + self._GeoLocation.altitude + "\n";
-                txt2 += "Gyro: " + JSON.stringify(self._gyro) + "\n";
+                txt2 += "Gyro: " + JSON.stringify(
+                    [self._gyro].map(g => {return {X: g.X.toFixed(1),Y: g.Y.toFixed(1),Z: g.Z.toFixed(1)}})
+                ) + "\n";
 
                 ctx.beginPath();
                 ctx.fillStyle = "#0F0";
