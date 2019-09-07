@@ -3,7 +3,7 @@
     console.log("NerveGearSoft", NerveGearEngine);
     console.log(w.e = new NerveGearEngine(document.querySelector("nerve-gear")));
 
-    window.onclick = function () {
+    document.onclick = function () {
         var a = {
             x: (e._can.width / 2) - 75, y: (e._can.height / 2) - 50,
             w: 150, h: 100
