@@ -296,21 +296,6 @@ NerveGearEngine = (function (w) {
                 ctx.enable(ctx.DEPTH_TEST);
                 
 
-
-                model.objs.forEach(function (obj, index) {
-                    drawImage(
-                        ctx, model.program,
-                        model.positionLocation,
-                        model.texcoordLocation,
-                        model.matrixLocation,
-                        model.textureLocation,
-                        model.positionBuffer,
-                        model.texcoordBuffer,
-                        obj.Texture, obj.Width, obj.Height,
-                        100, 100, obj.Width, obj.Height
-                    );
-                });
-
                 // Compute the matrix
                 var aspect = ctx.viewportWidth / ctx.viewportHeight;
                 var zNear = 1;
@@ -324,6 +309,22 @@ NerveGearEngine = (function (w) {
 
                 // Set the matrix.
                 ctx.uniformMatrix4fv(model.matrixLocation, false, matrix);
+
+
+                // draw obj
+                model.objs.forEach(function (obj, index) {
+                    drawImage(
+                        ctx, model.program,
+                        model.positionLocation,
+                        model.texcoordLocation,
+                        model.matrixLocation,
+                        model.textureLocation,
+                        model.positionBuffer,
+                        model.texcoordBuffer,
+                        obj.Texture, obj.Width, obj.Height,
+                        100, 100, obj.Width, obj.Height
+                    );
+                });
             }
 
             function degToRad(d) {
