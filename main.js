@@ -5,8 +5,13 @@
 
     w.addEventListener("click", function () {
         w.tada = function (self, gyro) {
-            self.rotation[0] += (gyro.X * 10);
-            self.rotation[1] += (gyro.Y * 10);
+            self.rotationDeg[0] += (gyro.X * 10);
+            self.rotationDeg[1] += (gyro.Y * 10);
+            self.rotationDeg[2] += (gyro.Z * 10);
+
+            self.rotation[0] = self.degToRad(self.rotationDeg[0]);
+            self.rotation[1] = self.degToRad(self.rotationDeg[1]);
+            self.rotation[2] = self.degToRad(self.rotationDeg[2]);
 
             // ctx.beginPath();
             // ctx.fillStyle = "#00F";

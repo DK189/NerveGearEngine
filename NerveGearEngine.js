@@ -333,6 +333,7 @@ NerveGearEngine = (function (w) {
 
             self.degToRad = degToRad;
             self.translation = [-150, 0, -360];
+            self.rotationDeg = [(190), (40), (320)];
             self.rotation = [degToRad(190), degToRad(40), degToRad(320)];
             self.scale = [1, 1, 1];
             self.fieldOfViewRadians = degToRad(60);
