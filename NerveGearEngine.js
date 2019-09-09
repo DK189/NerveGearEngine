@@ -116,27 +116,6 @@ NerveGearEngine = (function (w) {
                 return fix_size();
             }
 
-            function draw_Debug (ctx) {
-                var txt1 = "", txt2 = "";
-                txt1 += "GeoLocation: lat=" + self._GeoLocation.latitude + ", long=" + self._GeoLocation.longitude + ", alt=" + self._GeoLocation.altitude + "\n";
-                txt2 += "Gyro: " + JSON.stringify(
-                    [self._gyro].map(g => {return {X: g.X.toFixed(1),Y: g.Y.toFixed(1),Z: g.Z.toFixed(1)}})
-                ) + "\n";
-
-                var txts = [
-                    txt1, txt2,
-                    "Gyro_RAW: " + JSON.stringify(self._gyro_raw)
-                ];
-
-                ctx.beginPath();
-                ctx.fillStyle = "#0F0";
-                txts.forEach(function (txt, i) {
-                    ctx.fillText(txt, 10, 10 * (i+1));
-                });
-                // ctx.strokeText(txt, 10, 10);
-                ctx.closePath();
-            }
-
             function pre_draw_World (ctx) {
 
                 var model = {};
@@ -332,11 +311,38 @@ NerveGearEngine = (function (w) {
             }
 
             self.degToRad = degToRad;
-            self.translation = [-150, 0, -360];
+            self.translation = [0, 0, 0];
             self.rotationDeg = [(190), (40), (320)];
             self.rotation = [degToRad(190), degToRad(40), degToRad(320)];
             self.scale = [1, 1, 1];
             self.fieldOfViewRadians = degToRad(60);
+
+            function draw_Debug (ctx) {
+                var txt1 = "", txt2 = "";
+                txt1 += "GeoLocation: lat=" + self._GeoLocation.latitude + ", long=" + self._GeoLocation.longitude + ", alt=" + self._GeoLocation.altitude + "\n";
+                txt2 += "Gyro: " + JSON.stringify(
+                    [self._gyro].map(g => {return {X: g.X.toFixed(1),Y: g.Y.toFixed(1),Z: g.Z.toFixed(1)}})
+                ) + "\n";
+
+                var txts = [
+                    txt1, txt2,
+                    "Gyro_RAW: " + JSON.stringify(self._gyro_raw),
+                    "rotationDeg: " + JSON.stringify(self.rotationDeg),
+                    "rotation: " + JSON.stringify(self.rotation),
+                    "translation: " + JSON.stringify(self.translation),
+                ];
+
+                ctx.beginPath();
+                ctx.fillStyle = "#0F0";
+                txts.forEach(function (txt, i) {
+                    ctx.fillText(txt, 10, 10 * (i+1));
+                });
+                // ctx.strokeText(txt, 10, 10);
+                ctx.closePath();
+            }
+
+
+
 
             function drawImage(
                 gl, program,
