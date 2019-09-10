@@ -5,9 +5,13 @@
 
     w.addEventListener("click", function () {
         w.tada = function (self, gyro) {
-            self.rotationDeg[0] += parseInt(gyro.X * 100) / 10;
-            self.rotationDeg[1] += parseInt(gyro.Y * 100) / 10;
-            self.rotationDeg[2] += parseInt(gyro.Z * 100) / 10;
+            // self.rotationDeg[0] += parseInt(gyro.X * 10) / 10;
+            // self.rotationDeg[1] += parseInt(gyro.Y * 10) / 10;
+            // self.rotationDeg[2] += parseInt(gyro.Z * 10 ) / 10;
+
+            self.rotationDeg[0] += gyro.X;
+            self.rotationDeg[1] += gyro.X;
+            self.rotationDeg[2] += gyro.X;
 
             self.rotationDeg[0] = self.rotationDeg[0] % 360;
             self.rotationDeg[1] = self.rotationDeg[1] % 360;
