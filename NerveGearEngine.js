@@ -107,12 +107,14 @@ NerveGearEngine = (function (w) {
                         self._real.width = W;
                         self._virtual.width = W;
                         self._can.width = W;
+                        console.log("W:", W);
                     }
                     if (H != self._vid.videoHeight) {
                         H = self._vid.videoHeight;
                         self._real.height = H;
                         self._virtual.height = H;
                         self._can.height = H;
+                        console.log("H:", H);
                     }
                     return {W:W,H:H};
                 };
@@ -190,9 +192,10 @@ NerveGearEngine = (function (w) {
                 vid.autoplay = true;
                 vid.loop = true;
                 vid.obj = obj;
-                vid.onload = console.log;
+                // vid.onload = console.log;
                 vid.muted = true;
                 vid.src = "media/demo.mp4";
+                vid.play();
                 console.log(window.vid = vid);
                 obj.src = vid;
                 model.objs.push(obj);
@@ -204,11 +207,12 @@ NerveGearEngine = (function (w) {
             function draw_Virtual (ctx, gl) {
                 var model = pre_draw_Virtual(ctx, gl);
 
+
+                ctx.viewportWidth = ctx.canvas.width;
+                ctx.viewportHeight = ctx.canvas.height;
                 ctx.viewport(0, 0, ctx.canvas.width, ctx.canvas.height);
 
-                ctx.clear(ctx.COLOR_BUFFER_BIT);
-
-                ctx.enable(ctx.CULL_FACE);
+                // ctx.enable(ctx.CULL_FACE);
                 ctx.enable(ctx.DEPTH_TEST);
 
                 gl.clear();
@@ -223,6 +227,11 @@ NerveGearEngine = (function (w) {
                 gl.rotate(-camera.pitch, 1, 0, 0);
                 gl.rotate(-camera.yaw, 0, 1, 0);
                 gl.translate(-camera.x, -camera.y, -camera.z);
+
+                // enable lighting
+                gl.enableLighting();
+                gl.setAmbientLighting(0.5, 0.5, 0.5);
+                gl.setDirectionalLighting(-0.25, -0.25, -1, 0.8, 0.8, 0.8);
                 
                 // draw obj
                 model.objs.forEach(function (obj, index) {
@@ -308,7 +317,26 @@ NerveGearEngine = (function (w) {
                 } else {
                     document.exitFullscreen();
                 }
-            });
+                // if( document.pointerLockElement ){
+                //     document.exitPointerLock();
+                // }else {
+                //     this.requestPointerLock = this.requestPointerLock;
+                //     this.requestPointerLock();
+                // }
+            }, false);
+
+            self._el.addEventListener("mousemove", function(evt){
+                if( document.pointerLockElement == self._el ){
+					// update pitch
+					self.camera.pitch -= evt.movementY / gl.getCanvas().height;
+					
+					// update yaw
+					self.camera.yaw -= evt.movementX / gl.getCanvas().width;
+					
+					// DEBUG
+					// console.log( "POINT CAMERA: [ X: " + self.camera.yaw + " , Y: " + self.camera.pitch + " ]" );
+				}
+            }, false);
         })(this);
     };
     return NerveGearEngine;
