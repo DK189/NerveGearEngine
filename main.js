@@ -5,8 +5,8 @@
 
     w.addEventListener("click", function () {
         w.tada = function (self, gyro) {
-            self.camera.pitch += gyro.Y;
-            self.camera.yaw  += gyro.X;
+            self.camera.pitch += gyro.Y /  self._gl.getCanvas().height;
+            self.camera.yaw  += gyro.X / self._gl.getCanvas().width;
 
             // self.rotationDeg[0] += parseInt(gyro.X * 10) / 10;
             // self.rotationDeg[1] += parseInt(gyro.Y * 10) / 10;
