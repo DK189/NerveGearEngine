@@ -136,8 +136,6 @@ NerveGearEngine = (function (w) {
                 ctx.beginPath();
                 ctx.drawImage(self._vid, 0, 0, self._vid.videoWidth, self._vid.videoHeight);
                 ctx.closePath();
-
-                draw_Debug(ctx);
                 
                 ctx.clearRect(0,0,ctx.canvas.with, ctx.canvas.height);
 
@@ -303,6 +301,7 @@ NerveGearEngine = (function (w) {
                 draw_World.apply(self, [self._2d, self._vid]);
                 draw_Virtual.apply(self, [self._3d, self._gl]);
                 draw_Merge.apply(self, [self._ctx, self._2d, self._3d]);
+                draw_Debug.apply(self, [self._ctx, self._vid, self._2d, self._3d, self._gl]);
 
                 if (window.tada) {
                     window.tada(self, self._gyro);
