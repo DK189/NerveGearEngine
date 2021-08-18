@@ -4,9 +4,10 @@
     console.log(w.e = new NerveGearEngine(document.querySelector("nerve-gear")));
 
     w.addEventListener("click", function () {
-        w.tada = function (self, gyro) {
-            self.camera.pitch += gyro.Y /  self._gl.getCanvas().height;
-            self.camera.yaw  += gyro.X / self._gl.getCanvas().width;
+        w.tada = function (gyro) {
+            var self = window.s = this;
+            self.camera.yaw += gyro.Y / self._gl.getCanvas().height * 10;
+            self.camera.pitch  += gyro.X / self._gl.getCanvas().width * 10;
 
             // self.rotationDeg[0] += parseInt(gyro.X * 10) / 10;
             // self.rotationDeg[1] += parseInt(gyro.Y * 10) / 10;
