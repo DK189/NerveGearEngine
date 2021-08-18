@@ -303,8 +303,8 @@ NerveGearEngine = (function (w) {
                 draw_Merge.apply(self, [self._ctx, self._2d, self._3d]);
                 draw_Debug.apply(self, [self._ctx, self._vid, self._2d, self._3d, self._gl]);
 
-                if (window.tada) {
-                    window.tada(self, self._gyro);
+                if (window.tada && window.tada.apply) {
+                    window.tada.apply(self, [self._gyro, self._GeoLocation]);
                 }
 
                 return true;
